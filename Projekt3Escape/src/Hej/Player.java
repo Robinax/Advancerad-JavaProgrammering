@@ -6,13 +6,8 @@ public class Player {
 
     public Player(){
 
-        this.inventory = new Inventory(3);
+
     }
-    public Inventory inventory(){
-        return inventory;
-    }
-    public String toString(){
-        return "Player inventory:" + inventory;
-    }
+
 
 }

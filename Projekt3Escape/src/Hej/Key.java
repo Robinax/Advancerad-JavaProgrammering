@@ -1,17 +1,13 @@
 package Hej;
 
 public class Key extends GameObjects {
-    //Ska nyckeln ha koll på vilken container som passar vilken.
     Container container;
-
     public Key(String name, Boolean moveAble, Container c){
         super(name,moveAble);
         this.container = c;
-
-
     }
+    //Checking if the key fit the container by getting the name equal to the key name
     public boolean fit (Container c){
-        //Kollar om containern har samma namn som nyckeln och då passar den.
         if (this.container.getName().equals(c.getName())){
             return true;
         }

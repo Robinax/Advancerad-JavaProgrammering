@@ -5,45 +5,78 @@ import java.util.Arrays;
 public class Inventory {
     private GameObjects[] list;
     private int size;
+    private Game game;
     public Inventory(int size){
         this.size = size;
         list =new GameObjects[size];
     }
-    //lägger till saker till listan//inventory
+    //Adds an item to whatever inventory i want
     public void addObject(GameObjects go){
         int index = getFirstEmptyIndex();
-        //om det är fullt
         if (index ==-1){
-            System.out.println("inventory is full");
             return;
         }
-
         this.list[index] = go;
     }
-
-    //Skicka in det inventory du har just nu och sen lägger man det till det inventoryt som du beffiner dig i
-    public void moveObject(Inventory i2, GameObjects go){
-        //if (!isObjectHere(go)){felmeddelande} finns den i detta inventoryt. allt ligger i listan, är det där bra annars felmedelande
-        i2.addObject(go);
-        //this.removeObject(go);
-    }
-
     public String toString(){
         return Arrays.toString(this.list);
     }
+    //Gets the first empty spot in the array
     private int getFirstEmptyIndex(){
         //Stream sen!! kollar om det finns ledig plats
         for (int i = 0; i<this.list.length;i++){
             if (this.list[i] == null){
                 return i;
+            }
+        }
+        return -1;
+    }
+    //A grab method that is used if you pick upp or drop items
+    public GameObjects grab(String name) {
+        return getAndRemove(name, false);
+    }
+    //checks if the item is there and leets you pick it up if it is and is movable
+    GameObjects getAndRemove(String name, boolean ignoreUnmovable) {
+        for (int i = 0; i < list.length; i++) {
+            GameObjects object = list[i];
+            if (object == null) continue;
+            if (!object.isMoveAble() && !ignoreUnmovable) continue;
+            if (object.getName().equalsIgnoreCase(name)) {
+                list[i] = null;
+                return object;
+            }
+        }
+        return null;
+    }
 
+    GameObjects getitem(String name, boolean ignoreUnmovable) {
+        for (int i = 0; i < list.length; i++) {
+            GameObjects object = list[i];
+            if (object == null) continue;
+            if (!object.isMoveAble() && !ignoreUnmovable) continue;
 
-                //stream.filter****
+            if (object.getName().equalsIgnoreCase(name)) {
+                return object;
             }
         }
 
-        return -1;
+        return null;
     }
+    //a method used to find the right key you need, and checks if it fit with the container
+    Key findkey(Container container) {
+        for (int i = 0; i < list.length; i++) {
+            GameObjects object = list[i];
+            if (object == null) continue;
+            if (object instanceof Key) {
+                Key key = (Key) object;
+                if (key.fit(container)){
+                    return key;
+                }
+            }
+        }
+        return null;
+    }
+
 
 
 }

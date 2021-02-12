@@ -12,7 +12,7 @@ public class GUI extends JFrame {
     public int gamemode = 1;
     private Game game;
     JButton[] buttons = new JButton[4];
-    JLabel[] labels = new JLabel[5];
+    JLabel[] labels = new JLabel[7];
     JLabel background;
     JTextField input;
     String command = "";
@@ -55,12 +55,14 @@ ImageIcon img;
         buttons[2].setVisible(false);
         buttons[2].setBounds(550, 500, 100, 50);
 
+
         buttons[3] = new JButton("Commit");
         buttons[3].setActionCommand("Commit");
         MessageListener Commit = new MessageListener();
         buttons[3].addActionListener(Next);
         buttons[3].setVisible(false);
         buttons[3].setBounds(700, 475, 200, 50);
+
 
         setVisible(true);
         //Labels
@@ -89,6 +91,23 @@ ImageIcon img;
         labels[3].setForeground(Color.red);
         labels[3].setVisible(false);
 
+        labels[4] = new JLabel();
+        labels[4].setBounds(900, 100, 250, 200);
+        labels[4].setFont(new Font("Arial", Font.PLAIN, 16));
+        labels[4].setForeground(Color.red);
+        labels[4].setVisible(false);
+
+        labels[5] = new JLabel();
+        labels[5].setBounds(50, 400, 250, 200);
+        labels[5].setFont(new Font("Arial", Font.PLAIN, 15));
+        labels[5].setForeground(Color.red);
+        labels[5].setVisible(false);
+
+        labels[6] = new JLabel();
+        labels[6].setBounds(500, 100, 250, 200);
+        labels[6].setFont(new Font("Arial", Font.PLAIN, 40));
+        labels[6].setForeground(Color.red);
+        labels[6].setVisible(false);
 
 
 
@@ -114,6 +133,9 @@ ImageIcon img;
         background.add(labels[0]);
         background.add(labels[2]);
         background.add(labels[3]);
+        background.add(labels[4]);
+        background.add(labels[5]);
+        background.add(labels[6]);
         background.add(input);
                 //For loops that changes more than 1 thing at the time
         //Loop for the Meny!
@@ -172,8 +194,18 @@ ImageIcon img;
             labels[0].setVisible(true);
             labels[2].setVisible(true);
             labels[3].setVisible(true);
+            labels[5].setVisible(true);
             input.setVisible(true);
             buttons[3].setFont(new Font("Arial", Font.PLAIN, 20));
+
+        }
+        if (gamemode == 4){
+            for (int i = 0; i < buttons.length; i++){
+                buttons[i].setVisible(false);
+            }
+            for (int x = 0; x < 6; x++){
+                labels[x].setVisible(false);
+            }
         }
 
 
@@ -182,11 +214,23 @@ ImageIcon img;
     public void setShowRoom(String roomDescribtion){
         this.labels[3].setText("<html>"+roomDescribtion);
     }
-    public void setShowPersons(Person person){
-        this.labels[2].setText("<html>In this room you see:<br>"+person.toString());
+    public void setShowPersons(Person[] persons){
+
+        String person = "";
+        for (Npc npc : persons) {
+            if (npc == null) continue;
+            person += npc.toString();
+        }
+        this.labels[2].setText("<html>In this room you see:<br>"+person);
     }
     public void setShowInventory(Inventory i){
         this.labels[0].setText("<html>You are holding: "+i.toString());
+    }
+    public void setshowcontainerinventory(Inventory chest){
+        this.labels[4].setText("<html>This are in the chest:" + chest.toString());
+    }
+    public void setshowtip(){
+        this.labels[5].setText("<html>You can move around the rooms by typing room1 - room4. <br> You can grab items with \"grab\" and putdown with \"putdown\".<br>You can unlock chests or door withe the right key with the command \"unlock\". To take items from a chest you need to type \"take\" instead of grab");
     }
 
 
@@ -222,16 +266,27 @@ ImageIcon img;
             }
 
         }
-    public String getCommand(){
-        if (this.gotCommand){
-            return this.command;
+    public String getCommand() {
+        try {
+            if (this.gotCommand) {
+                return this.command;
+
+            }
+            return "";
+        } catch (Exception e) {
+            return "";
+        }finally {
+            this.gotCommand = false;
         }
-        return null;
-
-    }
 
 
     }
+
+    public void setGamemode(int gamemode) {
+        this.gamemode = gamemode;
+        update();
+    }
+}
 
 
 
