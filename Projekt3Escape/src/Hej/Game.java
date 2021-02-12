@@ -9,7 +9,6 @@ public class Game {
     private Room r1,r2,r3,r4;
     private GUI gui;
     private Inventory inventory;
-    private Player player;
     private Room[] map;
     private Person person;
 
@@ -21,7 +20,6 @@ public class Game {
     private Container chest = new Container("a_blue_chest",false,true);
     private Container doorOut = new Container("lastdoor",false,true);
     private  Key key = new Key("key#32",true,chest);
-    private boolean wongame = false;
     private int position = 0;
     private int chestopen = 0;
     Inventory playerInventory = new Inventory(3);
@@ -59,7 +57,7 @@ public class Game {
                     GameObjects item = active.getInventory().grab(arks[1]);
                     playerInventory.addObject(item);
                 }
-                if (command.contains("putdown")){
+                if (command.contains("drop")){
                     Room active = getActiveRoom();
                     GameObjects item = playerInventory.grab(arks[1]);
                     active.getInventory().addObject(item);

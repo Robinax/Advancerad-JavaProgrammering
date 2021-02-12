@@ -230,7 +230,7 @@ ImageIcon img;
         this.labels[4].setText("<html>This are in the chest:" + chest.toString());
     }
     public void setshowtip(){
-        this.labels[5].setText("<html>You can move around the rooms by typing room1 - room4. <br> You can grab items with \"grab\" and putdown with \"putdown\".<br>You can unlock chests or door withe the right key with the command \"unlock\". To take items from a chest you need to type \"take\" instead of grab");
+        this.labels[5].setText("<html>You can move around the rooms by typing room1 - room4. <br> You can grab items with \"grab\" and putdown with \"drop\".<br>You can unlock chests or door withe the right key with the command \"unlock\". To take items from a chest you need to type \"take\" instead of grab");
     }
 
 

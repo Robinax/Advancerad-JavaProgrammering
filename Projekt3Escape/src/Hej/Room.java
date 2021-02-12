@@ -27,7 +27,7 @@ public class Room {
         }
         //gets the first empty space
     private int getFirstEmptyIndex(){
-        //Stream sen!! kollar om det finns ledig plats
+
        for (int i = 0; i<this.person.length;i++){
             if (this.person[i] == null){
                 return i;

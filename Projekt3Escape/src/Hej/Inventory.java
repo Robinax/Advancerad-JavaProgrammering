@@ -1,6 +1,10 @@
 package Hej;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class Inventory {
     private GameObjects[] list;
@@ -18,9 +22,21 @@ public class Inventory {
         }
         this.list[index] = go;
     }
-    public String toString(){
-        return Arrays.toString(this.list);
+    public String toString() {
+        //used stream to get null away
+        String streamlist = "";
+        streamlist = Arrays.toString(Arrays.stream(list).filter(x -> x != null).toArray());
+            return streamlist;
     }
+    //Same but with forloop
+    /*for (int i = 0; i <this.list.length;i++ ){
+            if (list[i] != null) {
+                newlist += list[i].toString()+" ";
+
+            }
+        }return newlist+" :";
+       //return Arrays.toString(this.list);
+    }*/
     //Gets the first empty spot in the array
     private int getFirstEmptyIndex(){
         //Stream sen!! kollar om det finns ledig plats
